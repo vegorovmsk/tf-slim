@@ -24,6 +24,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import tensorflow as tf
+
 import abc
 
 import six
@@ -452,7 +454,7 @@ class Image(ItemHandler):
         math_ops.equal(image_format, 'raw'),
         math_ops.equal(image_format, 'RAW')), decode_raw)]
 
-    image = control_flow_case.case(
+    image = tf.case(
         pred_fn_pairs, default=check_jpeg, exclusive=True)
 
     image.set_shape([None, None, self._channels])
